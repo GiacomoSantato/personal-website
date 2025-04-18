@@ -1,59 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>Home on Giacomo Santato</title>
-    <link>http://localhost:1313/personal-website/</link>
-    <description>Recent content in Home on Giacomo Santato</description>
-    <generator>Hugo -- 0.146.5</generator>
-    <language>en</language>
-    <lastBuildDate>Mon, 25 Nov 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/personal-website/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Codegate CTF Quals 2024</title>
-      <link>http://localhost:1313/personal-website/blog/codegate24/</link>
-      <pubDate>Mon, 25 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/personal-website/blog/codegate24/</guid>
-      <description>&lt;p&gt;Old version of the writeup: &lt;a href=&#34;https://hackmd.io/CNE7wlkITNS6Oh0cHTJbww&#34;&gt;LINK&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;A couple of weeks ago, I played the preliminaries for Codegate CTF 2024 with about:blankets. We managed to qualify for the finals in Seoul! I was able to join for most of the 24 hours and it was really nice to come back to the CTF world after three/four really busy months.&lt;/p&gt;
-&lt;h1 id=&#34;crypto---cogechan_dating_game&#34;&gt;crypto - Cogechan_Dating_Game&lt;/h1&gt;
-&lt;p&gt;&lt;em&gt;Challenge&lt;/em&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Author: BaaaaaaaaaaaaaaaaaaaaaaarkingDog&lt;/li&gt;
-&lt;li&gt;Solves: 15&lt;/li&gt;
-&lt;li&gt;Points: 306&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Love Wins All&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Seccon CTF Quals 2024</title>
-      <link>http://localhost:1313/personal-website/blog/seccon24/</link>
-      <pubDate>Fri, 10 May 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/personal-website/blog/seccon24/</guid>
-      <description>&lt;p&gt;Old version of this writeup: &lt;a href=&#34;https://hackmd.io/ApQoupblQcy0HGjA-Unbrw&#34;&gt;Here&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Another month, another CTF! Last weekend I played the qualifiers for Seccon CTF 2024 with about:blankets. I played remotely 😢 but the new whiteboard gave me and Drago a lot of space to think!
-Drago and I were able to solve three crypto challenges 🎉 and, considering the full a:b team, we were able to solve all the crypto challenges 🎉🎉🎉 — we were one of the only two teams to do that. (Dice Gang being the other one)&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title></title>
-      <link>http://localhost:1313/personal-website/blog/dimensional_erosion/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/personal-website/blog/dimensional_erosion/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title></title>
-      <link>http://localhost:1313/personal-website/blog/fherret/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/personal-website/blog/fherret/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title></title>
-      <link>http://localhost:1313/personal-website/blog/on_cp_multiparty_approx_fhe/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/personal-website/blog/on_cp_multiparty_approx_fhe/</guid>
-      <description></description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Home on Giacomo Santato</title><link>https://NotPhiQuadro.github.io/personal-website/</link><description>Recent content in Home on Giacomo Santato</description><generator>Hugo -- 0.146.5</generator><language>en</language><lastBuildDate>Mon, 25 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://NotPhiQuadro.github.io/personal-website/index.xml" rel="self" type="application/rss+xml"/><item><title>Codegate CTF Quals 2024</title><link>https://NotPhiQuadro.github.io/personal-website/blog/codegate24/</link><pubDate>Mon, 25 Nov 2024 00:00:00 +0000</pubDate><guid>https://NotPhiQuadro.github.io/personal-website/blog/codegate24/</guid><description>&lt;p>Old version of the writeup: &lt;a href="https://hackmd.io/CNE7wlkITNS6Oh0cHTJbww">LINK&lt;/a>&lt;/p>
+&lt;p>A couple of weeks ago, I played the preliminaries for Codegate CTF 2024 with about:blankets. We managed to qualify for the finals in Seoul! I was able to join for most of the 24 hours and it was really nice to come back to the CTF world after three/four really busy months.&lt;/p>
+&lt;h1 id="crypto---cogechan_dating_game">crypto - Cogechan_Dating_Game&lt;/h1>
+&lt;p>&lt;em>Challenge&lt;/em>&lt;/p>
+&lt;ul>
+&lt;li>Author: BaaaaaaaaaaaaaaaaaaaaaaarkingDog&lt;/li>
+&lt;li>Solves: 15&lt;/li>
+&lt;li>Points: 306&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Love Wins All&lt;/p></description></item><item><title>Seccon CTF Quals 2024</title><link>https://NotPhiQuadro.github.io/personal-website/blog/seccon24/</link><pubDate>Fri, 10 May 2024 00:00:00 +0000</pubDate><guid>https://NotPhiQuadro.github.io/personal-website/blog/seccon24/</guid><description>&lt;p>Old version of this writeup: &lt;a href="https://hackmd.io/ApQoupblQcy0HGjA-Unbrw">Here&lt;/a>&lt;/p>
+&lt;p>Another month, another CTF! Last weekend I played the qualifiers for Seccon CTF 2024 with about:blankets. I played remotely 😢 but the new whiteboard gave me and Drago a lot of space to think!
+Drago and I were able to solve three crypto challenges 🎉 and, considering the full a:b team, we were able to solve all the crypto challenges 🎉🎉🎉 — we were one of the only two teams to do that. (Dice Gang being the other one)&lt;/p></description></item><item><title/><link>https://NotPhiQuadro.github.io/personal-website/blog/dimensional_erosion/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://NotPhiQuadro.github.io/personal-website/blog/dimensional_erosion/</guid><description/></item><item><title/><link>https://NotPhiQuadro.github.io/personal-website/blog/fherret/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://NotPhiQuadro.github.io/personal-website/blog/fherret/</guid><description/></item><item><title/><link>https://NotPhiQuadro.github.io/personal-website/blog/on_cp_multiparty_approx_fhe/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://NotPhiQuadro.github.io/personal-website/blog/on_cp_multiparty_approx_fhe/</guid><description/></item></channel></rss>

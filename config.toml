@@ -44,5 +44,7 @@ languageCode = "en-us"
 section = ["HTML"]
 [params]
   mainSections = []  
+  disableMetadata = true
   [params.assets]
   favicon = "favicon.png" 
+
