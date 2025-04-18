@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/personal-website/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=personal-website/livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Seccon CTF Quals 2024 | Giacomo Santato</title>
+<meta name="keywords" content="">
+<meta name="description" content="Old version of this writeup: Here
+Another month, another CTF! Last weekend I played the qualifiers for Seccon CTF 2024 with about:blankets. I played remotely 😢 but the new whiteboard gave me and Drago a lot of space to think!
+Drago and I were able to solve three crypto challenges 🎉 and, considering the full a:b team, we were able to solve all the crypto challenges 🎉🎉🎉 — we were one of the only two teams to do that. (Dice Gang being the other one)">
+<meta name="author" content="Giacomo Santato">
+<link rel="canonical" href="http://localhost:1313/personal-website/blog/seccon24/">
+<link crossorigin="anonymous" href="/personal-website/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/personal-website/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/personal-website/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/personal-website/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/personal-website/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/personal-website/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/personal-website/blog/seccon24/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/personal-website/" accesskey="h" title="Giacomo Santato (Alt + H)">Giacomo Santato</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/personal-website/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/personal-website/research/" title="Research">
+                    <span>Research</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/personal-website/ctf/" title="CTF">
+                    <span>CTF</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Seccon CTF Quals 2024
+    </h1>
+    <div class="post-meta"><span title='2024-05-10 00:00:00 +0000 UTC'>May 10, 2024</span>&nbsp;·&nbsp;Giacomo Santato
+
+</div>
+  </header> 
+  <div class="post-content">
+      <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <p>Old version of this writeup: <a href="https://hackmd.io/ApQoupblQcy0HGjA-Unbrw">Here</a></p>
+<p>Another month, another CTF! Last weekend I played the qualifiers for Seccon CTF 2024 with about:blankets. I played remotely 😢 but the new whiteboard gave me and Drago a lot of space to think!
+Drago and I were able to solve three crypto challenges 🎉 and, considering the full a:b team, we were able to solve all the crypto challenges 🎉🎉🎉 — we were one of the only two teams to do that. (Dice Gang being the other one)</p>
+<p>Here you can find the writeups for dual_summon and tidal_wave. Drago came up with most of the solution for xiyi, so you can find his writeup on his hackmd at: <a href="https://hackmd.io/@Drago/r1_Kz8IXJx">LINK</a></p>
+<h1 id="crypto---dual_summon">crypto - dual_summon<a hidden class="anchor" aria-hidden="true" href="#crypto---dual_summon">#</a></h1>
+<p><em>Challenge</em></p>
+<ul>
+<li>Author: kurenaif (best crypto vtuber ever! Go say &lsquo;hello&rsquo; at <a href="https://www.youtube.com/c/kurenaif">https://www.youtube.com/c/kurenaif</a>)</li>
+<li>Solves: 63</li>
+<li>Points: 123</li>
+</ul>
+<blockquote>
+<p>You are a beginner summoner. It&rsquo;s finally time to learn dual summon</p></blockquote>
+<p>This challenge involves AES in GCM mode. Specifically, we’re tasked with creating a plaintext that, when encrypted under two secret keys, results in the same authentication tag. GCM&rsquo;s rich mathematical structure in $GF(2^{128})$ gives us interesting leverage here.</p>
+<h4 id="challenge-details">Challenge Details<a hidden class="anchor" aria-hidden="true" href="#challenge-details">#</a></h4>
+<p>The server generates two secret keys and a single nonce. We can call an oracle that encrypts a plaintext of our choice and returns its authentication tag, specifying which secret key to use. However, the oracle can only be called 10 times.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#server.py</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">summon</span>(number, plaintext):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">assert</span> len(plaintext) <span style="color:#f92672">==</span> <span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span>    aes <span style="color:#f92672">=</span> AES<span style="color:#f92672">.</span>new(key<span style="color:#f92672">=</span>keys[number<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], mode<span style="color:#f92672">=</span>AES<span style="color:#f92672">.</span>MODE_GCM, nonce<span style="color:#f92672">=</span>nonce)
+</span></span><span style="display:flex;"><span>    ct, tag <span style="color:#f92672">=</span> aes<span style="color:#f92672">.</span>encrypt_and_digest(plaintext)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> ct, tag
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>    number <span style="color:#f92672">=</span> int(input(<span style="color:#e6db74">&#34;summon number (1 or 2) &gt;&#34;</span>))
+</span></span><span style="display:flex;"><span>    name   <span style="color:#f92672">=</span> bytes<span style="color:#f92672">.</span>fromhex(input(<span style="color:#e6db74">&#34;name of sacrifice (hex) &gt;&#34;</span>))
+</span></span><span style="display:flex;"><span>    ct, tag <span style="color:#f92672">=</span> summon(number, name)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;monster name = [---filtered---]&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;tag(hex) = </span><span style="color:#e6db74">{</span>tag<span style="color:#f92672">.</span>hex()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><p>The goal is to execute the dual_summon function successfully:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#server.py</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># When you can exec dual_summon, you will win</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">dual_summon</span>(plaintext):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">assert</span> len(plaintext) <span style="color:#f92672">==</span> <span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span>    aes1 <span style="color:#f92672">=</span> AES<span style="color:#f92672">.</span>new(key<span style="color:#f92672">=</span>keys[<span style="color:#ae81ff">0</span>], mode<span style="color:#f92672">=</span>AES<span style="color:#f92672">.</span>MODE_GCM, nonce<span style="color:#f92672">=</span>nonce)
+</span></span><span style="display:flex;"><span>    aes2 <span style="color:#f92672">=</span> AES<span style="color:#f92672">.</span>new(key<span style="color:#f92672">=</span>keys[<span style="color:#ae81ff">1</span>], mode<span style="color:#f92672">=</span>AES<span style="color:#f92672">.</span>MODE_GCM, nonce<span style="color:#f92672">=</span>nonce)
+</span></span><span style="display:flex;"><span>    ct1, tag1 <span style="color:#f92672">=</span> aes1<span style="color:#f92672">.</span>encrypt_and_digest(plaintext)
+</span></span><span style="display:flex;"><span>    ct2, tag2 <span style="color:#f92672">=</span> aes2<span style="color:#f92672">.</span>encrypt_and_digest(plaintext)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># When using dual_summon you have to match tags</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">assert</span> tag1 <span style="color:#f92672">==</span> tag2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>name   <span style="color:#f92672">=</span> bytes<span style="color:#f92672">.</span>fromhex(input(<span style="color:#e6db74">&#34;name of sacrifice (hex) &gt;&#34;</span>))
+</span></span><span style="display:flex;"><span>dual_summon(name)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Wow! you could exec dual_summon! you are master of summoner!&#34;</span>)
+</span></span><span style="display:flex;"><span>print(flag)   
+</span></span></code></pre></div><h3 id="solve">Solve<a hidden class="anchor" aria-hidden="true" href="#solve">#</a></h3>
+<p>As always, when dealing with GCM we need the following helping functions:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> bytes_to_long 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>F<span style="color:#f92672">.&lt;</span>a<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> GF(<span style="color:#ae81ff">2</span>)[]
+</span></span><span style="display:flex;"><span>F<span style="color:#f92672">.&lt;</span>z<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> GF(<span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#ae81ff">128</span>, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;z&#39;</span>, modulus<span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> a <span style="color:#f92672">+</span> a<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> a<span style="color:#f92672">^</span><span style="color:#ae81ff">7</span> <span style="color:#f92672">+</span> a<span style="color:#f92672">^</span><span style="color:#ae81ff">128</span> )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">bytes_to_GF</span>(ctx):
+</span></span><span style="display:flex;"><span>    prebin<span style="color:#f92672">=</span>bin(bytes_to_long(ctx))[<span style="color:#ae81ff">2</span>:]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> F([int(i) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> <span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">*</span>(<span style="color:#ae81ff">128</span><span style="color:#f92672">-</span>len(prebin))<span style="color:#f92672">+</span>prebin])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">GF_to_bytes</span>(el):
+</span></span><span style="display:flex;"><span>    pre2<span style="color:#f92672">=</span>(bin(F(el)<span style="color:#f92672">.</span>integer_representation())[<span style="color:#ae81ff">2</span>:])[::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    preint<span style="color:#f92672">=</span> int(pre2 <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">*</span>(<span style="color:#ae81ff">128</span><span style="color:#f92672">-</span>len(pre2)),<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> int(preint)<span style="color:#f92672">.</span>to_bytes(length<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>,byteorder<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;big&#34;</span>)
+</span></span></code></pre></div><p>The plaintext needs to have a fixed length of one block. Recalling the structure of AES-GCM (<a href="https://en.wikipedia.org/wiki/Galois/Counter_Mode%29">https://en.wikipedia.org/wiki/Galois/Counter_Mode)</a>, we know that the tag can be written as:<br>
+$ tag = Enc_{sk_i}(nonce) + H \cdot(H\cdot(Enc_{sk_i}(nonce+1)+ptx+H\cdot A) +L )$<br>
+where $+$ and $\cdot$ are the field operations of $GF(2^128)$, and $H$, $A$ and $L$ are fixed ($H$ is key-dependent) values.</p>
+<p>We can rewrite this as:</p>
+<p>$ tag= Enc_{sk_i}(nonce) + H^2 \cdot Enc_{sk_i}(nonce+1) + H^2\cdot ptx + H^3 \cdot A + H^2 \cdot L .$<br>
+From this, we can emphasize the (in)dependency of the terms on the plaintext:</p>
+<p>$  tag = mask_{sk_i} + H^2\cdot ptx $</p>
+<p>This means that, by quering the summon oracle with $ptx=0$ for each of the keys we can obtain $mask_{sk_0}$ and $mask_{sk_1}$.
+Also, by quering the oracle again with any plaintext, we can recover the value of $H^2$ for both secret keys just by subtracting the mask and dividing for the plaintext.</p>
+<p>Having both masks and $H^2$ for both secret keys, now we can just consider the equality between the two tags to obtain the desired plaintext for the dual summon:</p>
+<p>$ mask_{sk_0} + H_{sk_0}^2\cdot ptx = mask_{sk_1} + H_{sk_1}^2\cdot ptx$</p>
+<p>$ ptx = \frac{mask_{sk_1}-mask_{sk_0}}{H_{sk_0}^2 - H_{sk_1}^2}  $</p>
+<p>Here is the Sagemath code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>ptx0<span style="color:#f92672">=</span> GF_to_bytes(F(<span style="color:#ae81ff">0</span>))
+</span></span><span style="display:flex;"><span>ptx1<span style="color:#f92672">=</span> GF_to_bytes(F(<span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>summ0<span style="color:#f92672">=</span> summon(<span style="color:#ae81ff">0</span>,ptx0)
+</span></span><span style="display:flex;"><span>mask<span style="color:#f92672">=</span> bytes_to_GF(summ0)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>summ1<span style="color:#f92672">=</span> summon(<span style="color:#ae81ff">0</span>,ptx1)
+</span></span><span style="display:flex;"><span>Hsq<span style="color:#f92672">=</span> bytes_to_GF(summ1)<span style="color:#f92672">-</span>mask
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>summ2<span style="color:#f92672">=</span> summon(<span style="color:#ae81ff">1</span>,ptx0)
+</span></span><span style="display:flex;"><span>mask2<span style="color:#f92672">=</span> bytes_to_GF(summ2)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>summ3<span style="color:#f92672">=</span> summon(<span style="color:#ae81ff">1</span>,ptx1)
+</span></span><span style="display:flex;"><span>Hsq2<span style="color:#f92672">=</span> bytes_to_GF(summ3)<span style="color:#f92672">-</span>mask2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ptx<span style="color:#f92672">=</span> GF_to_bytes((mask<span style="color:#f92672">-</span>mask2)<span style="color:#f92672">/</span>(Hsq<span style="color:#f92672">-</span>Hsq2))
+</span></span><span style="display:flex;"><span>dual_summon(ptx)
+</span></span></code></pre></div><h1 id="crypto---tidal-wave">crypto - Tidal wave<a hidden class="anchor" aria-hidden="true" href="#crypto---tidal-wave">#</a></h1>
+<p><em>Challenge</em></p>
+<ul>
+<li>Author: kurenaif</li>
+<li>Solves: 19</li>
+<li>Points: 210</li>
+</ul>
+<blockquote>
+<p>A torrent of data.</p></blockquote>
+<p>The code has many constructions, so let’s analyze it step by step, starting from the end goal.</p>
+<ol>
+<li>The flag is encrypted with AES with key &ldquo;keyvec&rdquo;</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>keyvec <span style="color:#f92672">=</span> vector(R, [get_Rrandom(R) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(k)])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>key <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>sha256(str(keyvec)<span style="color:#f92672">.</span>encode())<span style="color:#f92672">.</span>digest()
+</span></span><span style="display:flex;"><span>cipher <span style="color:#f92672">=</span> AES<span style="color:#f92672">.</span>new(key, AES<span style="color:#f92672">.</span>MODE_ECB)
+</span></span><span style="display:flex;"><span>encrypted_flag <span style="color:#f92672">=</span> cipher<span style="color:#f92672">.</span>encrypt(pad(flag, AES<span style="color:#f92672">.</span>block_size))
+</span></span></code></pre></div><ol start="2">
+<li>Keyvec is encrypted by multiplying it for a secret matrix $G$ and by adding an error vector with a specific structure. The errors are either $0$s or multiples of $p$ or $q$, where $p,q$ are large unknowns primes from a RSA module.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>prime_bit_length <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> getPrime(prime_bit_length)
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> getPrime(prime_bit_length)
+</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> p<span style="color:#f92672">*</span>q
+</span></span><span style="display:flex;"><span>R <span style="color:#f92672">=</span> Zmod(N)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">make_random_vector2</span>(R, length):
+</span></span><span style="display:flex;"><span>    error_cnt <span style="color:#f92672">=</span> <span style="color:#ae81ff">28</span>
+</span></span><span style="display:flex;"><span>    res <span style="color:#f92672">=</span> vector(R, length)
+</span></span><span style="display:flex;"><span>    error_pos <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>sample(range(length), error_cnt)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> error_pos[:error_cnt<span style="color:#f92672">//</span><span style="color:#ae81ff">2</span>]:
+</span></span><span style="display:flex;"><span>        res[i] <span style="color:#f92672">=</span> get_Rrandom(R)<span style="color:#f92672">*</span>p
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> error_pos[error_cnt<span style="color:#f92672">//</span><span style="color:#ae81ff">2</span>:]:
+</span></span><span style="display:flex;"><span>        res[i] <span style="color:#f92672">=</span> get_Rrandom(R)<span style="color:#f92672">*</span>q
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> vector(R, res)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>key_encoded <span style="color:#f92672">=</span> keyvec<span style="color:#f92672">*</span>G <span style="color:#f92672">+</span> make_random_vector2(R, n)
+</span></span></code></pre></div><ol start="3">
+<li>$p$ is also encrypted by multiplying it for the same secret matrix $G$ and by adding a big (aaaaalmost uniform) error to it.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">make_random_vector</span>(R, length):
+</span></span><span style="display:flex;"><span>    error_range <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#ae81ff">1000</span>
+</span></span><span style="display:flex;"><span>    res <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(length):
+</span></span><span style="display:flex;"><span>        res<span style="color:#f92672">.</span>append(R(secrets<span style="color:#f92672">.</span>randbelow(int(error_range))))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> vector(R, res)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>p_encoded <span style="color:#f92672">=</span> pvec<span style="color:#f92672">*</span>G <span style="color:#f92672">+</span> make_random_vector(R, n)
+</span></span></code></pre></div><ol start="4">
+<li>Finally, we have some information about $G$. In particular, $G$ is a Vandermonde matrix of a list of secret $\alpha_i$, of which we know the squares $\alpha_i^2$ and a RSA encryption of the sum $(\sum\alpha_i)^{65537}$. We also know the determinant of five submatrixes of $G$, therefore $\prod_{i&lt;j}(\alpha_j-\alpha_i)$ for $i,j\in{0,\dots,7},{7,\dots,14},\dots,{28,\dots,35}$.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>alphas <span style="color:#f92672">=</span> vector(R, [get_Rrandom(R) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n)])
+</span></span><span style="display:flex;"><span>G <span style="color:#f92672">=</span> Vandermonde(R, alphas)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dets <span style="color:#f92672">=</span> [G<span style="color:#f92672">.</span>submatrix(<span style="color:#ae81ff">0</span>,i<span style="color:#f92672">*</span>k<span style="color:#f92672">-</span>i,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">8</span>)<span style="color:#f92672">.</span>det() <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>)]
+</span></span><span style="display:flex;"><span>double_alphas <span style="color:#f92672">=</span> list(map(<span style="color:#66d9ef">lambda</span> x: x<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span>, alphas))
+</span></span><span style="display:flex;"><span>alpha_sum_rsa <span style="color:#f92672">=</span> R(sum(alphas))<span style="color:#f92672">^</span><span style="color:#ae81ff">65537</span>
+</span></span></code></pre></div><h3 id="pre-solve">Pre-Solve<a hidden class="anchor" aria-hidden="true" href="#pre-solve">#</a></h3>
+<p>(Spoiler) Understading that these sub-problems can be solved sequentially, 4 to 1, was not immediate. In particular, sub-problem 4 seems to have not enough information for an algebraic attack. The only info we have are some determinants (that are really high degree polynomials hard to relinearize) and some squares in a ring where computing square roots is hard. Therefore, as a first approach, we tried to merge points 3 and 4 in a bigger problem.
+This detour involved 90 minutes of messy algebraic computations, only to eventually circle back to the original problem.</p>
+<p>Here’s a photo of the process:<img alt="4_and_3_combined" loading="lazy" src="https://hackmd.io/_uploads/BJjC0JMXyg.jpg"></p>
+<h3 id="solve-1">Solve<a hidden class="anchor" aria-hidden="true" href="#solve-1">#</a></h3>
+<p>After deciding that merging 3 and 4 is a mistake, we focused on how to solve 4 on its own. The key idea (thanks to Drago) was to use Gröbner bases. We didn&rsquo;t want to try it at first because the number of equations that we had seemed low and the determinant had really high degree. Apparently our faith in Gröbner was too low and having the squares is already really powerful to isolate ideals on a polynomial ring, even if you cannot compute square roots directly!</p>
+<p>So, after convincing Sage that we were actually working on the polynomial ring of a field (<a href="https://bsky.app/profile/drago1729.bsky.social/post/3lbrcuj2pfk26">Fun Picture Of It</a>), we were able to use Gröbner to obtain the alphas (or at least the relations between them):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#Here we are using made up values. </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#In the real execution we just imported the challenge ones.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>RN <span style="color:#f92672">=</span> Zmod(N)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">retTrue</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RN<span style="color:#f92672">.</span>is_field <span style="color:#f92672">=</span> retTrue
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>alphas <span style="color:#f92672">=</span> [RN(randint(<span style="color:#ae81ff">1</span>, N)) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n)]
+</span></span><span style="display:flex;"><span>a2 <span style="color:#f92672">=</span> [a<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">for</span> a <span style="color:#f92672">in</span> alphas]
+</span></span><span style="display:flex;"><span>A <span style="color:#f92672">=</span> matrix<span style="color:#f92672">.</span>vandermonde(alphas)
+</span></span><span style="display:flex;"><span>dd <span style="color:#f92672">=</span> A<span style="color:#f92672">.</span>det()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>R <span style="color:#f92672">=</span> PolynomialRing(RN, [<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;x_</span><span style="color:#e6db74">{</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n)])
+</span></span><span style="display:flex;"><span>xx <span style="color:#f92672">=</span> R<span style="color:#f92672">.</span>gens()
+</span></span><span style="display:flex;"><span>sq_polys <span style="color:#f92672">=</span> [xx[i]<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> a2[i] <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n)]
+</span></span><span style="display:flex;"><span>RQ <span style="color:#f92672">=</span> R<span style="color:#f92672">.</span>quotient(R<span style="color:#f92672">.</span>ideal(sq_polys))
+</span></span><span style="display:flex;"><span>xxbar <span style="color:#f92672">=</span> [RQ(x) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> xx]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>minor <span style="color:#f92672">=</span> matrix<span style="color:#f92672">.</span>vandermonde(xxbar)<span style="color:#f92672">.</span>det()
+</span></span><span style="display:flex;"><span>I <span style="color:#f92672">=</span> R<span style="color:#f92672">.</span>ideal([minor<span style="color:#f92672">.</span>lift()<span style="color:#f92672">-</span>dd]<span style="color:#f92672">+</span>sq_polys)
+</span></span><span style="display:flex;"><span>I<span style="color:#f92672">.</span>groebner_basis()
+</span></span></code></pre></div><p>The result was obtaining the linear relation between each couple of $(\alpha_i,\alpha_j)$. This allowed us to express all the secret alphas as $\lambda_i\cdot\alpha_{35}$. To finally obtain the values we used the encryption of the sum of the $\alpha$ that we were given. In particular, $(\sum\alpha_i)^{65537}= (\sum\lambda_i)^{65537}\cdot\alpha_{35}^{65537}$. Since we also knew determinants of the submatrixes, we had $\prod_{i&lt;j}(\lambda_j-\lambda_i)\alpha_{35}^{24}$. If we compute xgcd on 65537 and 24, we obtain $a*24+b=65537=1$ that allows us to find $\alpha_{35} = (\alpha_{35}^{24})^a \cdot (\alpha_{35}^{65537})^b$. And therefore all the other alphas.</p>
+<p>Now that we solved 4. we know $G$ and we can continue with 3.</p>
+<p>By knowing $G$ we now have a lattice (the one generated by $G$ itself) where we can work on. Here, we know that
+</p>
+$$ split(p) \cdot G + E = p\_enc$$<p>
+therefore, we can construct a CVP. The lattice is:
+$\begin{pmatrix}
+G &amp; 1_{36} &amp; 0_{36}  &amp; 0_{36}\
+1 &amp; 0 &amp; 1 &amp; 0 \
+-N* 1 &amp; 0 &amp;0 &amp; 0
+\end{pmatrix} $</p>
+<p>and we are trying to recover the vector
+$\begin{pmatrix}
+p_enc\
+split(p) \
+E \
+ks
+\end{pmatrix} $
+where the $ks$ are the multiples of $N$ that where added for the equality to hold over the integers. Of this vector we know exactly p_enc and we have good bounds on the size of $split(p)$.</p>
+<p>We now run any CVP solver  with bounds on the entries: fixed p_enc, $split(p)&lt;2^{64}$, $E&lt;2^{1000}$ and $ks&lt;2^{67}$ to obtain a result for this vector and to extract a value of $split(p)$.
+(thanks RKM :heart: <a href="https://github.com/rkm0959/Inequality_Solving_with_CVP">https://github.com/rkm0959/Inequality_Solving_with_CVP</a>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>A <span style="color:#f92672">=</span> block_matrix(ZZ, [[Matrix(ZZ, G), <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>],[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>], [<span style="color:#f92672">-</span>N, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>]], subdivide<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>lbounds <span style="color:#f92672">=</span> list(vector(ZZ, p_encoded)) <span style="color:#f92672">+</span> [<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">8</span> <span style="color:#f92672">+</span> [<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">36</span> <span style="color:#f92672">+</span> [<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">36</span>
+</span></span><span style="display:flex;"><span>ubounds <span style="color:#f92672">=</span> list(vector(ZZ, p_encoded)) <span style="color:#f92672">+</span> [<span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#ae81ff">64</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">8</span> <span style="color:#f92672">+</span> [<span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#ae81ff">1000</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">36</span> <span style="color:#f92672">+</span> [<span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#ae81ff">67</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">36</span>
+</span></span><span style="display:flex;"><span>solve(A, lbounds, ubounds)
+</span></span></code></pre></div><p>Unfortunately, if we try to divide $N$ with this $p$, it doesn&rsquo;t work. The problem is that, when looking at the equation $split(p)\cdot G$, we obtain that each row is of the following shape </p>
+$$ p_0+p_1\cdot\alpha+ \dots +p_7\cdot\alpha^7 +e = p\_enc $$<p> We notice that $p_0$ is never multiplied for $\alpha$ and, therefore, is not fixed/distinct from the error. Luckily, when having at least half of the value of $p$ in an RSA module, is possible to fully factor it using Coppersmith, so it is still possible to recover $p_0$ from the incorrect $split(p)$.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>R<span style="color:#f92672">.&lt;</span>t<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> PolynomialRing(Zmod(N), <span style="color:#e6db74">&#34;t&#34;</span>)
+</span></span><span style="display:flex;"><span>f <span style="color:#f92672">=</span> t<span style="color:#f92672">+</span>sum(<span style="color:#ae81ff">2</span><span style="color:#f92672">^</span>(<span style="color:#ae81ff">64</span><span style="color:#f92672">*</span>i)<span style="color:#f92672">*</span>pvec[i] <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">8</span>))
+</span></span><span style="display:flex;"><span>f<span style="color:#f92672">.</span>small_roots(beta<span style="color:#f92672">=</span><span style="color:#ae81ff">0.4</span>)
+</span></span></code></pre></div><p>Now that we have $p$, we can factor $N$ to find $q$ and proceed to the next section.</p>
+<p>Here, the key is encrypted again as a product with $G$ (that we know) but the error vector is created in a different, easier, way. The error vector has 36 slots, of which 14 are multiples of $p$, 14 are multiples of q and 8 are zeroes. To solve this without $p$ and $q$, we would need to guess the $8$ positions of the zeroes. In this case we would have a noiseless linear system modulo $N$ that we could easily solve. Unfortunately, guessing correctly 8 out of 36 is negligible.</p>
+<p>By knowing $p$, we can look at this problem modulo $p$. In this setting the error vector has $22$ zeroes and $14$ multiples of $q$. Guessing correctly $22$ slots out of $36$ is easily bruteforceable. We just guess $8$ position, pretend the linear system is noiseless and solve it. If we start getting the same solution for multiple positions guesses, then we know that that one is the correct solution mod $p$. We repeat the same process mod $q$ and then we combine with CRT to obtain keyvec.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> itertools <span style="color:#f92672">import</span> combinations
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> Counter
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> random <span style="color:#f92672">import</span> sample
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cnt <span style="color:#f92672">=</span> Counter()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Kp <span style="color:#f92672">=</span> GF(p)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>    indices <span style="color:#f92672">=</span> sample(range(<span style="color:#ae81ff">36</span>), <span style="color:#ae81ff">8</span>)
+</span></span><span style="display:flex;"><span>    vals <span style="color:#f92672">=</span> [Kp(alphas[j]) <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> indices]
+</span></span><span style="display:flex;"><span>    targets <span style="color:#f92672">=</span> [key_encoded[j] <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> indices]
+</span></span><span style="display:flex;"><span>    M <span style="color:#f92672">=</span> matrix<span style="color:#f92672">.</span>vandermonde(vals)
+</span></span><span style="display:flex;"><span>    sol <span style="color:#f92672">=</span> M<span style="color:#f92672">^</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> vector(Kp, targets)
+</span></span><span style="display:flex;"><span>    cnt[tuple(sol)] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> cnt<span style="color:#f92672">.</span>most_common(<span style="color:#ae81ff">1</span>)[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">3</span>:
+</span></span><span style="display:flex;"><span>        print(sol)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>keyvec <span style="color:#f92672">=</span> tuple([crt([keyp[i], keyq[i]], [p, q]) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">8</span>)])
+</span></span></code></pre></div><p>We conclude by using keyvec for the AES decryption of the flag.</p>
+<h1 id="crypto---xiyi">crypto - xiyi<a hidden class="anchor" aria-hidden="true" href="#crypto---xiyi">#</a></h1>
+<p><em>Challenge</em></p>
+<ul>
+<li>Author: y011d4</li>
+<li>Solves: 4</li>
+<li>Points: 393</li>
+</ul>
+<blockquote>
+<p>Calculate \sum_i x_i y_i secretly</p></blockquote>
+<p>Drago came up with most of the solution so you can find a full writeup on his hackmd at: <a href="https://hackmd.io/@Drago/r1_Kz8IXJx">LINK</a></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/personal-website/">Giacomo Santato</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
